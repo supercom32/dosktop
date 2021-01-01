@@ -1,7 +1,7 @@
 package memory
 
 import (
-	"github.com/supercom32/dosktop/constant"
+	"github.com/supercom32/dosktop/constants"
 	"encoding/json"
 )
 

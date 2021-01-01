@@ -1,8 +1,8 @@
 package memory
 
 import (
-	"github.com/supercom32/dosktop/constant"
 	"encoding/json"
+	"github.com/supercom32/dosktop/constants"
 )
 
 // TuiStyleEntryType adsas

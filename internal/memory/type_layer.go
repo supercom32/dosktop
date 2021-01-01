@@ -3,7 +3,7 @@ package memory
 import (
 	"encoding/json"
 	"github.com/gdamore/tcell"
-	"github.com/supercom32/dosktop/constant"
+	"github.com/supercom32/dosktop/constants"
 	"github.com/supercom32/dosktop/internal/stringformat"
 )
 

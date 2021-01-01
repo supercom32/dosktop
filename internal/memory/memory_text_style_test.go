@@ -1,7 +1,7 @@
 package memory
 
 import (
-	"github.com/supercom32/dosktop/constant"
+	"github.com/supercom32/dosktop/constants"
 	"github.com/supercom32/dosktop/internal/recast"
 	"github.com/stretchr/testify/assert"
 	"testing"
