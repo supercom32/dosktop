@@ -64,8 +64,8 @@ func NewTextStyleEntry(existingAttributeEntry ...*TextStyleEntryType) TextStyleE
 		attributeEntry.IsBlinking = existingAttributeEntry[0].IsBlinking
 		attributeEntry.IsItalic = existingAttributeEntry[0].IsItalic
 	} else {
-		attributeEntry.ForegroundColor = constant.AnsiColorByIndex[15]
-		attributeEntry.BackgroundColor = constant.AnsiColorByIndex[0]
+		attributeEntry.ForegroundColor = constants.AnsiColorByIndex[15]
+		attributeEntry.BackgroundColor = constants.AnsiColorByIndex[0]
 	}
 	return attributeEntry
 }

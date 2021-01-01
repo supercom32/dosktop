@@ -80,10 +80,10 @@ func NewAttributeEntry(existingAttributeEntry ...*AttributeEntryType) AttributeE
 	} else {
 		attributeEntry.ForegroundTransformValue = 1
 		attributeEntry.BackgroundTransformValue = 1
-		attributeEntry.ForegroundColor = constant.AnsiColorByIndex[15]
-		attributeEntry.BackgroundColor = constant.AnsiColorByIndex[0]
-		attributeEntry.CellId = constant.NullCellId
-		attributeEntry.CellType = constant.NullCellType
+		attributeEntry.ForegroundColor = constants.AnsiColorByIndex[15]
+		attributeEntry.BackgroundColor = constants.AnsiColorByIndex[0]
+		attributeEntry.CellId = constants.NullCellId
+		attributeEntry.CellType = constants.NullCellType
 	}
 	return attributeEntry
 }

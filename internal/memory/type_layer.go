@@ -73,7 +73,7 @@ func (shared LayerEntryType) GetBasicAnsiString() string {
 				ansiString += shared.GetAnsiBackgroundColorString(shared.CharacterMemory[currentRow][currentCharacter].AttributeEntry.BackgroundColor)
 				currentBackgroundColor = shared.CharacterMemory[currentRow][currentCharacter].AttributeEntry.BackgroundColor
 			}
-			if shared.CharacterMemory[currentRow][currentCharacter].Character == constant.NullRune {
+			if shared.CharacterMemory[currentRow][currentCharacter].Character == constants.NullRune {
 				ansiString += " "
 			} else {
 				ansiString += string(shared.CharacterMemory[currentRow][currentCharacter].Character)

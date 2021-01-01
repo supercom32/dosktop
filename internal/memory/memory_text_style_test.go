@@ -9,8 +9,8 @@ import (
 
 func TestAddTextStyle(test *testing.T) {
 	expectedAlias := "MyCustomAttribute"
-	expectedForegroundColor := int32(constant.ColorRed)
-	expectedBackgroundColor := int32(constant.ColorBrightGreen)
+	expectedForegroundColor := int32(constants.ColorRed)
+	expectedBackgroundColor := int32(constants.ColorBrightGreen)
 	expectedIsBlinking := true
 	InitializeTextStyleMemory()
 	attributeEntry := NewTextStyleEntry()
@@ -26,8 +26,8 @@ func TestAddTextStyle(test *testing.T) {
 
 func TestDeleteTextStyle(test *testing.T) {
 	expectedAlias := "MyCustomAttribute"
-	expectedForegroundColor := int32(constant.ColorRed)
-	expectedBackgroundColor := int32(constant.ColorBrightGreen)
+	expectedForegroundColor := int32(constants.ColorRed)
+	expectedBackgroundColor := int32(constants.ColorBrightGreen)
 	expectedIsBlinking := true
 	InitializeTextStyleMemory()
 	attributeEntry := NewTextStyleEntry()

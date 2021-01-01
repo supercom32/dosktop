@@ -66,13 +66,13 @@ func TestGetNumberOfWideCharacters(test *testing.T) {
 }
 
 func TestGetFormattedString(test *testing.T) {
-	obtainedResult := GetFormattedString("Formatted String", 40, constant.LeftAligned)
+	obtainedResult := GetFormattedString("Formatted String", 40, constants.LeftAligned)
 	expectedResult := "Formatted String                        "
 	assert.Equalf(test, expectedResult, obtainedResult, "The formatted string obtained was not left aligned as expected.")
-	obtainedResult = GetFormattedString("Formatted String", 40, constant.RightAligned)
+	obtainedResult = GetFormattedString("Formatted String", 40, constants.RightAligned)
 	expectedResult = "                        Formatted String"
 	assert.Equalf(test, expectedResult, obtainedResult, "The formatted string obtained was not right aligned as expected.")
-	obtainedResult = GetFormattedString("Formatted String", 40, constant.CenterAligned)
+	obtainedResult = GetFormattedString("Formatted String", 40, constants.CenterAligned)
 	expectedResult = "            Formatted String            "
 	assert.Equalf(test, expectedResult, obtainedResult, "The formatted string obtained was not center aligned as expected.")
 }
