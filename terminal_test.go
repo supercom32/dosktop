@@ -407,3 +407,15 @@ func TestDeleteLayer(test *testing.T) {
 	expectedValue = 1
 	assert.Equalf(test, expectedValue, obtainedValue ,"The number of layers created does not match!")
 }
+
+func TestNewAssetList(test *testing.T) {
+	imageFileList := NewAssetList()
+	imageFileList.AddPreloadedImage("fileName1", "fileAlias1", 10, 11, 0.6)
+	obtainedValue := recast.GetArrayOfInterfaces(imageFileList.PreloadedImageList[0].FileName, imageFileList.PreloadedImageList[0].FileAlias, imageFileList.PreloadedImageList[0].WidthInCharacters, imageFileList.PreloadedImageList[0].HeightInCharacters, imageFileList.PreloadedImageList[0].BlurSigma)
+	expectedValue := recast.GetArrayOfInterfaces("fileName1", "fileAlias1", 10, 11, 0.6)
+	assert.Equalf(test, expectedValue, obtainedValue, "The file entry obtained does not match what was set!")
+	imageFileList.Clear()
+	obtainedValue = recast.GetArrayOfInterfaces(len(imageFileList.PreloadedImageList))
+	expectedValue = recast.GetArrayOfInterfaces(0)
+	assert.Equalf(test, expectedValue, obtainedValue, "The number of file entries does not what was expected!")
+}

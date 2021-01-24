@@ -323,9 +323,9 @@ options you want to make available for a given menu prompt. For example:
 	// Create a new selection entry to populate our menu entries with.
 	selectionEntry := dosktop.NewSelectionEntry()
 	// Add a selection with the alias "Opt1" and a display value of "OK".
-	selectionEntry.AddSelection("Opt1", "OK")
+	selectionEntry.Add("Opt1", "OK")
 	// Add a selection with the alias "Opt2" with the display value of "CANCEL".
-	selectionEntry.AddSelection("Opt2", "CANCEL")
+	selectionEntry.Add("Opt2", "CANCEL")
 	// Prompt the user with a vertical selection menu, on the text layer
 	// with the alias "ForegroundLayer", using a default TUI style entry,
 	// a selection entry with two options, at the layer location (0, 0),
@@ -334,6 +334,30 @@ options you want to make available for a given menu prompt. For example:
 */
 func NewSelectionEntry() memory.SelectionEntryType {
 	return memory.NewSelectionEntry()
+}
+
+/*
+NewAssetList allows you to obtain a list for storing asset information with.
+This is useful for loading assets in bulk since you can specify asset
+information as a collection instead of each one individually. An example
+use of this method is as follows:
+
+	// Create a new asset list.
+	assetList := dosktop.NewAssetList()
+	// Add an image file with the image filename 'MyImageFile', and image
+	// alias of 'MyImageAlias'.
+	assetList.AddImage("MyImageFile", "MyImageAlias")
+	// Load the list of images into memory.
+	err := loadImagesInBulk(assetList)
+
+In addition, the following information should be noted:
+
+- An asset list can contain multiple asset types. This allows the same
+asset list to be shared by multiple methods that load different kinds of
+assets.
+*/
+func NewAssetList() memory.AssetListType {
+	return memory.NewAssetList()
 }
 
 /*

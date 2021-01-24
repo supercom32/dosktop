@@ -20,6 +20,19 @@ func TestImageLoading(test *testing.T) {
 	assert.Equalf(test, expectedValue, obtainedValue ,"The decoded and encoded image does not match!")
 }
 
+func TestDrawBadImagesToLayer(test  *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			test.Errorf("Drawing an image to a layer with an invalid layer should have thrown a panic!")
+		}
+	}()
+	commonResource.isDebugEnabled = true
+	layerWidth := 100
+	layerHeight := 35
+	InitializeTerminal(layerWidth, layerHeight)
+	DrawImageToLayer("Bad Layer", "sampleImage", 1, 1, 0, 0, 0)
+}
+
 func TestDrawScalableImageToLayer(test *testing.T) {
 	commonResource.isDebugEnabled = true
 	layerAlias1 := "Layer1"
