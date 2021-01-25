@@ -13,7 +13,7 @@ operations, while avoiding complicated event-driven TUI designs.
 * High level support for buttons, selection menus, lines, frames, and other TUI controls!
 * Full manual and automatic mouse support with TUI integration!
 * Dialog text printing with automatic word wrapping, typewriter effects, and dynamic style markup!
-* Virtual File System (ZIP) support, with password protection to ensure resource integrity!
+* Virtual File System (ZIP & RAR) support, with password protection to ensure resource integrity!
 * Automatic conversion and rendering of bitmap images directly to text layers in ansi graphics!
 
 # Screenshots
