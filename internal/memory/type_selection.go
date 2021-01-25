@@ -10,13 +10,12 @@ func NewSelectionEntry() SelectionEntryType {
 	return selectionEntry
 }
 
-func (shared *SelectionEntryType) AddSelection(selectionAlias string, selectionValue string) {
+func (shared *SelectionEntryType) Add(selectionAlias string, selectionValue string) {
 	shared.SelectionAlias = append(shared.SelectionAlias, selectionAlias)
 	shared.SelectionValue = append(shared.SelectionValue, selectionValue)
 }
 
-// ClearSelectionEntry asdasd
-func (shared *SelectionEntryType) ClearSelectionEntry() {
+func (shared *SelectionEntryType) Clear() {
 	shared.SelectionAlias = nil
 	shared.SelectionValue = nil
 }
