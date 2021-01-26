@@ -1,3 +1,5 @@
+![Build](https://github.com/supercom32/dosktop/workflows/Build/badge.svg)
+
 # Dosktop
 
 Dosktop is a package which allow users to easily create rich text-based terminal
