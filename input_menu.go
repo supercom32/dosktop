@@ -1,11 +1,10 @@
 package dosktop
 
 import (
+	"fmt"
 	"github.com/supercom32/dosktop/constants"
 	"github.com/supercom32/dosktop/internal/memory"
 	"github.com/supercom32/dosktop/internal/stringformat"
-	"fmt"
-	"strconv"
 )
 
 /*
@@ -418,8 +417,6 @@ func GetSelectionFromVerticalMenuByIndex(layerAlias string, styleEntry memory.Tu
 			memory.MouseMemory.ClearMouseMemory()
 		}
 		if currentKeyPressed == "enter" {
-			PrintDebugLog(strconv.Itoa(viewportPosition + selectedItem))
-			PrintDebugLog(strconv.Itoa(len(selectionEntry.SelectionAlias)))
 			returnValue = viewportPosition + selectedItem
 			isItemSelected = true
 		}

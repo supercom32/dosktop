@@ -76,9 +76,7 @@ monitoring continues.
 */
 func setupEventUpdater() {
 	for {
-		PrintDebugLog("EVENT IN - " + getTimeAndDate())
 		updateEventQueues()
-		PrintDebugLog("EVENT OUT - " + getTimeAndDate())
 	}
 }
 
