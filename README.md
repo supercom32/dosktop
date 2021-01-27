@@ -1,4 +1,5 @@
 ![Build](https://github.com/supercom32/dosktop/workflows/Build/badge.svg)
+[![GoDoc reference example](https://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/supercom32/dosktop@main)
 
 # Dosktop
 
