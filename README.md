@@ -1,4 +1,5 @@
 ![Build](https://github.com/supercom32/dosktop/workflows/Build/badge.svg)
+[![codecov](https://codecov.io/gh/supercom32/dosktop/branch/main/graph/badge.svg?token=V3RZE3B6IW)](https://codecov.io/gh/supercom32/dosktop)
 ![](https://tokei.rs/b1/github/supercom32/dosktop?category=code)
 ![](https://tokei.rs/b1/github/supercom32/dosktop?category=files)
 [![Go Reference](https://pkg.go.dev/badge/github.com/supercom32/dosktop@main.svg)](https://pkg.go.dev/github.com/supercom32/dosktop@main)
