@@ -167,7 +167,7 @@ format or not.
 func isArchiveFormatZip(archivePath string) error {
 	readCloser, err := zip.OpenReader(archivePath)
 	if err == nil {
-		readCloser.Close()
+		_ = readCloser.Close()
 	}
 	return err
 }
@@ -179,7 +179,7 @@ format or not.
 func isArchiveFormatRar(archivePath string, password string) error {
 	readCloser, err := rardecode.OpenReader(archivePath, password)
 	if err == nil {
-		readCloser.Close()
+		_ = readCloser.Close()
 	}
 	return err
 }
@@ -335,7 +335,7 @@ func getFileDataFromZipArchive(fileName string) ([]byte, error) {
 				err = errors.New(fmt.Sprintf("Could not read data from the file '%s': %s", fileName, err.Error()))
 				return fileData, err
 			}
-			fileReadCloser.Close()
+			_ = fileReadCloser.Close()
 		}
 	}
 	if fileData == nil {
