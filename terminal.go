@@ -22,6 +22,7 @@ type defaultValueType struct {
 	terminalWidth  int
 	terminalHeight int
 	screenLayer    memory.LayerEntryType
+	debugDirectory string
 	isDebugEnabled bool
 }
 
@@ -52,6 +53,7 @@ func InitializeTerminal(width int, height int) {
 	memory.InitializeTimerMemory()
 	commonResource.terminalWidth = width
 	commonResource.terminalHeight = height
+	commonResource.debugDirectory = "/tmp/"
 	if !commonResource.isDebugEnabled {
 		screen, err := tcell.NewScreen()
 		if err != nil {
