@@ -235,8 +235,8 @@ layer, then only the visible portion of your menu item will be drawn.
 - The returned value is the selection alias for the item that was
 chosen.
 */
-func GetSelectionFromHorizontalMenu(layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int) string {
-	selectionIndex := GetSelectionFromHorizontalMenuByIndex(layerAlias, styleEntry, selectionEntry, xLocation, yLocation)
+func GetSelectionFromHorizontalMenu(layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int, defaultItemSelected int) string {
+	selectionIndex := GetSelectionFromHorizontalMenuByIndex(layerAlias, styleEntry, selectionEntry, xLocation, yLocation, defaultItemSelected)
 	return selectionEntry.SelectionAlias[selectionIndex]
 }
 
@@ -254,10 +254,13 @@ layer, then only the visible portion of your menu item will be drawn.
 - The returned value is the index number of your selection, where 0 is the
 first item on your selection list.
 */
-func GetSelectionFromHorizontalMenuByIndex(layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int) int {
+func GetSelectionFromHorizontalMenuByIndex(layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int, defaultItemSelected int) int {
+	if defaultItemSelected < 0 || defaultItemSelected >= len(selectionEntry.SelectionValue) {
+		panic(fmt.Sprintf("The specified default item selected of '%d' is invalid for a selection range of 0 to %d!", defaultItemSelected, len(selectionEntry.SelectionValue)))
+	}
 	layerEntry := memory.GetLayer(layerAlias)
 	isItemSelected := false
-	selectedItem := 0
+	selectedItem :=  defaultItemSelected
 	returnValue := 0
 	previouslySelectedItem := 0
 	numberOfMenuItems := len(selectionEntry.SelectionValue)
@@ -355,8 +358,8 @@ layer, then only the visible portion of your menu item will be drawn.
 - The returned value is the selection alias for the item that was
 chosen.
 */
-func GetSelectionFromVerticalMenu (layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int, menuWidth int, menuHeight int) string {
-	selectionIndex := GetSelectionFromVerticalMenuByIndex(layerAlias, styleEntry , selectionEntry, xLocation, yLocation, menuWidth, menuHeight)
+func GetSelectionFromVerticalMenu (layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int, menuWidth int, menuHeight int, defaultItemSelected int) string {
+	selectionIndex := GetSelectionFromVerticalMenuByIndex(layerAlias, styleEntry , selectionEntry, xLocation, yLocation, menuWidth, menuHeight, defaultItemSelected)
 	return selectionEntry.SelectionAlias[selectionIndex]
 }
 
@@ -370,12 +373,15 @@ layer, then only the visible portion of your menu item will be drawn.
 - The returned value is the index number of your selection, where 0 is the
 first item on your selection list.
 */
-func GetSelectionFromVerticalMenuByIndex(layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int, menuWidth int, menuHeight int) int {
+func GetSelectionFromVerticalMenuByIndex(layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int, menuWidth int, menuHeight int, defaultItemSelected int ) int {
 	isItemSelected := false
-	selectedItem := 0
+	selectedItem := defaultItemSelected
 	viewportPosition := 0
 	returnValue := 0
 	previouslySelectedItem := 0
+	if defaultItemSelected < 0 || defaultItemSelected >= len(selectionEntry.SelectionValue) {
+		panic(fmt.Sprintf("The specified default item selected of '%d' is invalid for a selection range of 0 to %d!", defaultItemSelected, len(selectionEntry.SelectionValue)))
+	}
 	drawVerticalMenu(layerAlias, styleEntry, selectionEntry, xLocation, yLocation, menuWidth, menuHeight, viewportPosition, selectedItem)
 	UpdateDisplay()
 	for isItemSelected == false {
