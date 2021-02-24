@@ -118,6 +118,7 @@ const FrameStyleNormal = 0
 const FrameStyleRaised = 1
 const FrameStyleSunken = 2
 const CellTypeButton = 1
+const CellTypeTextInput = 2
 
 const VirtualFileSystemZip = 1
 const VirtualFileSystemRar = 2

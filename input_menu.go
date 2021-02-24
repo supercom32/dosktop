@@ -481,8 +481,17 @@ func GetInput(layerAlias string, styleEntry memory.TuiStyleEntryType, xLocation 
 		memory.KeyboardMemory.AddKeystrokeToKeyboardBuffer("end")
 	}
 	for currentKeyPressed != "enter" {
+		mouseXLocation, mouseYLocation, mouseButtonPressed, _ := memory.MouseMemory.GetMouseStatus()
+		mouseCellIdentifier := getCellIdByLayerAlias(layerAlias, mouseXLocation, mouseYLocation)
+		if mouseCellIdentifier != constants.NullCellId {
+			if mouseButtonPressed == 1 {
+				cursorPosition = mouseCellIdentifier
+				isScreenUpdateRequired = true
+			}
+		}
 		currentKeyPressed = Inkey()
 		if currentKeyPressed != "" {
+			// If character is pressed.
 			if len(currentKeyPressed) == 1 {
 				if len(inputString) < maxLengthAllowed {
 					inputString = inputString[:viewportPosition+cursorPosition] + currentKeyPressed + inputString[viewportPosition+cursorPosition:]
@@ -583,12 +592,12 @@ func GetInput(layerAlias string, styleEntry memory.TuiStyleEntryType, xLocation 
 			}
 		}
 		if isScreenUpdateRequired {
-			drawInputString(layerEntry, styleEntry, xLocation, yLocation, width, 0, stringformat.GetFilledString(width, " "))
+			drawInputString(layerEntry, styleEntry, xLocation, yLocation, width, 0, false, stringformat.GetFilledString(width, " "))
 			if IsPasswordProtected {
 				passwordProtectedString := stringformat.GetFilledString(len(inputString), "*")
-				drawInputString(layerEntry, styleEntry, xLocation, yLocation, widthOfViewport, viewportPosition, passwordProtectedString)
+				drawInputString(layerEntry, styleEntry, xLocation, yLocation, widthOfViewport, viewportPosition, true, passwordProtectedString)
 			} else {
-				drawInputString(layerEntry, styleEntry, xLocation, yLocation, widthOfViewport, viewportPosition, inputString)
+				drawInputString(layerEntry, styleEntry, xLocation, yLocation, widthOfViewport, viewportPosition, true, inputString)
 			}
 			drawCursor(layerEntry, styleEntry, xLocation, yLocation, cursorPosition, false)
 			UpdateDisplay()
@@ -639,10 +648,11 @@ the text layer, then only the visible portion will be displayed.
 start. If the remainder of your string is too long for the specified width,
 then only the visible portion will be displayed.
 */
-func drawInputString(layerEntry *memory.LayerEntryType, styleEntry memory.TuiStyleEntryType, xLocation int, yLocation int, width int, stringPosition int, inputString string) {
+func drawInputString(layerEntry *memory.LayerEntryType, styleEntry memory.TuiStyleEntryType, xLocation int, yLocation int, width int, stringPosition int, isCellIdsRequired bool, inputString string) {
 	attributeEntry := memory.NewAttributeEntry()
 	attributeEntry.ForegroundColor = styleEntry.TextInputForegroundColor
 	attributeEntry.BackgroundColor = styleEntry.TextInputBackgroundColor
+	attributeEntry.CellType = constants.CellTypeTextInput
 	runeSlice := []rune(inputString)
 	var safeSubstring string
 	if stringPosition+width <= len(inputString) {
@@ -651,5 +661,12 @@ func drawInputString(layerEntry *memory.LayerEntryType, styleEntry memory.TuiSty
 		safeSubstring = string(runeSlice[stringPosition : stringPosition+len(inputString)-stringPosition])
 	}
 	arrayOfRunes := stringformat.GetRunesFromString(safeSubstring)
-	printLayer(layerEntry, attributeEntry, xLocation, yLocation, arrayOfRunes)
+	// Here we loop over each character to draw since we need to accommodate for unique
+	// cell IDs (if required for mouse location detection).
+	for currentRuneIndex := 0; currentRuneIndex < len(arrayOfRunes); currentRuneIndex ++ {
+		if isCellIdsRequired {
+			attributeEntry.CellId = currentRuneIndex
+		}
+		printLayer(layerEntry, attributeEntry, xLocation + currentRuneIndex, yLocation, []rune{arrayOfRunes[currentRuneIndex]})
+	}
 }
