@@ -106,9 +106,8 @@ func getMD5Hash(text string) string {
 	return hex.EncodeToString(hash[:])
 }
 
-
 /*
-SetVirtualFileSystem allows you to specify a virtual file system to mount.
+mountVirtualFileSystem allows you to specify a virtual file system to mount.
 A virtual file system is a ZIP or RAR archive that contains all files in which
 you wish to access. This is useful since instead of distributing multiple
 files and folders with your application, you can simply package everything
@@ -139,7 +138,7 @@ see the method 'GetScrambledPassword' for details.
 error will be returned so that your application can handle this case
 appropriately.
 */
-func SetVirtualFileSystem(archivePath string, password string, scrambleKey string) error {
+func mountVirtualFileSystem(archivePath string, password string, scrambleKey string) error {
 	err := isArchiveFormatZip(archivePath)
 	if err == nil {
 		virtualFileSystemArchiveType = constants.VirtualFileSystemZip
@@ -158,6 +157,18 @@ func SetVirtualFileSystem(archivePath string, password string, scrambleKey strin
 	}
 	err = errors.New(fmt.Sprintf("Failed to open or decode '%s'.", archivePath))
 	return err
+}
+
+/*
+UnmountVirtualFileSystem allows you to reset the virtual file system to an
+unmounted state. This is useful for when you want to access the physical
+file system directly.
+*/
+func UnmountVirtualFileSystem() {
+	virtualFileSystemArchiveType = 0
+	virtualFileSystemArchive = ""
+	virtualFileSystemPassword = ""
+	virtualFileSystemEncryptionKey = ""
 }
 
 /*
@@ -263,15 +274,14 @@ func getFileDataFromFileSystem(fileName string) ([]byte, error) {
 	var err error
 	if virtualFileSystemArchiveType == constants.VirtualFileSystemZip {
 		fileData, err = getFileDataFromZipArchive(fileName)
+		return fileData, err
 	} else if virtualFileSystemArchiveType == constants.VirtualFileSystemRar {
 		fileData, err = getFileDataFromRarArchive(fileName)
+		return fileData, err
 	}
+	fileData, err = getFileDataFromLocalFileSystem(fileName)
 	if err != nil {
-		archiveError := err
-		fileData, err = getFileDataFromLocalFileSystem(fileName)
-		if err != nil {
-			err = errors.New(fmt.Sprintf("Could not open the file '%s': %s, %s", fileName, archiveError.Error(), err.Error()))
-		}
+		err = errors.New(fmt.Sprintf("Could not open the file '%s': %s", fileName, err.Error()))
 	}
 	return fileData, err
 }

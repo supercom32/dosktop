@@ -21,42 +21,53 @@ func TestGetUnscrambledPassword(test *testing.T) {
 	assert.Equalf(test, obtainedResult, expectedResult, "The unscrambled password did not match what was expected!")
 }
 
-func TestSetVirtualFileSystem(test *testing.T) {
+func TestMountVirtualFileSystem(test *testing.T) {
 	var expectedResult error
 	scrambledPassword := "TAFDRw=="
 	scrambleKey := "SampleScrambleKey"
 
 	// Verify valid statements.
-	obtainedResult := SetVirtualFileSystem(BASE_DIRECTORY + "valid.zip", scrambledPassword, scrambleKey)
+	obtainedResult := mountVirtualFileSystem(BASE_DIRECTORY + "valid.zip", scrambledPassword, scrambleKey)
 	assert.Equalf(test, obtainedResult, expectedResult, "Failed to open a valid ZIP filesystem!")
 	_, err := getImageFromFileSystem("myFolder-1/myFolder-2/sample3.png")
 	assert.NoErrorf(test, err, "Failed to obtain image data from ZIP file system.")
-	obtainedResult = SetVirtualFileSystem(BASE_DIRECTORY + "valid.rar", scrambledPassword, scrambleKey)
+	obtainedResult = mountVirtualFileSystem(BASE_DIRECTORY + "valid.rar", scrambledPassword, scrambleKey)
 	_, err = getImageFromFileSystem("myFolder-1/myFolder-2/sample3.png")
 	assert.NoErrorf(test, err, "Failed to obtain image data from RAR file system.")
 
 	// Verify invalid archive passwords generate errors.
 	scrambleKey = "SampleScrambleKey_BAD"
-	obtainedResult = SetVirtualFileSystem(BASE_DIRECTORY + "valid.zip", scrambledPassword, scrambleKey)
+	obtainedResult = mountVirtualFileSystem(BASE_DIRECTORY + "valid.zip", scrambledPassword, scrambleKey)
 	assert.Equalf(test, obtainedResult, expectedResult, "Failed to open a valid ZIP filesystem!")
 	_, err = getImageFromFileSystem("myFolder-1/myFolder-2/sample3.png")
 	assert.Errorf(test, err, "Expected an error retrieving a file from ZIP file system with a bad password.")
-	obtainedResult = SetVirtualFileSystem(BASE_DIRECTORY + "valid.rar", scrambledPassword, scrambleKey)
+	obtainedResult = mountVirtualFileSystem(BASE_DIRECTORY + "valid.rar", scrambledPassword, scrambleKey)
 	_, err = getImageFromFileSystem("myFolder-1/myFolder-2/sample3.png")
 	assert.Errorf(test, err, "Expected an error retrieving a file from RAR file system with a bad password.")
 
 	// Verify invalid file requests generate errors.
 	scrambleKey = "SampleScrambleKey"
-	obtainedResult = SetVirtualFileSystem(BASE_DIRECTORY + "valid.zip", scrambledPassword, scrambleKey)
+	obtainedResult = mountVirtualFileSystem(BASE_DIRECTORY + "valid.zip", scrambledPassword, scrambleKey)
 	assert.Equalf(test, obtainedResult, expectedResult, "Failed to open a valid ZIP filesystem!")
 	_, err = getImageFromFileSystem("myFolder-1/myFolder-2/sample3.png_BAD")
 	assert.Errorf(test, err, "Expected an error retrieving a file from ZIP file system that does not exist.")
-	obtainedResult = SetVirtualFileSystem(BASE_DIRECTORY + "valid.rar", scrambledPassword, scrambleKey)
+	obtainedResult = mountVirtualFileSystem(BASE_DIRECTORY + "valid.rar", scrambledPassword, scrambleKey)
 	_, err = getImageFromFileSystem("myFolder-1/myFolder-2/sample3.png_BAD")
 	assert.Errorf(test, err, "Expected an error retrieving a file from RAR file system that does not exist.")
 
 	// Verify invalid archives.
 	assert.Equalf(test, obtainedResult, expectedResult, "Failed to open a valid ZIP filesystem!")
-	obtainedResult = SetVirtualFileSystem(BASE_DIRECTORY + "invalid.zip", scrambledPassword, scrambleKey)
+	obtainedResult = mountVirtualFileSystem(BASE_DIRECTORY + "invalid.zip", scrambledPassword, scrambleKey)
 	assert.NotNil(test, obtainedResult, "Opening an invalid ZIP file was expected to fail when it didn't!")
+	UnmountVirtualFileSystem()
+}
+
+func TestGetFileDataFromLocalFileSystem(test *testing.T) {
+	_, err := getFileDataFromLocalFileSystem(BASE_DIRECTORY + "valid.rar")
+	assert.NoErrorf(test, err, "Did not expect an error reading a file that should exist!")
+}
+
+func TestGetTextFromFileSystem(test *testing.T) {
+	_, err := getTextFromFileSystem(BASE_DIRECTORY + "text_file.txt")
+	assert.NoErrorf(test, err, "Did not expect an error reading a text file that should exist!")
 }

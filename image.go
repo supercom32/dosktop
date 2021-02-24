@@ -73,7 +73,13 @@ and further loading will stop.
 func LoadImagesInBulk(assetList memory.AssetListType) error {
 	var err error
 	for _, currentAsset := range assetList.ImageList {
-		err = LoadImage(currentAsset.FileAlias, currentAsset.FileAlias)
+		err = LoadImage(currentAsset.FileName, currentAsset.FileAlias)
+		if err != nil {
+			return err
+		}
+	}
+	for _, currentAsset := range assetList.PreloadedImageList {
+		err = LoadPreRenderedImage(currentAsset.FileName, currentAsset.FileAlias, currentAsset.WidthInCharacters, currentAsset.HeightInCharacters, currentAsset.BlurSigma)
 		if err != nil {
 			return err
 		}
@@ -120,41 +126,6 @@ func LoadPreRenderedImage(imageFile string, imageAlias string, widthInCharacters
 	imageEntry.LayerEntry = getImageLayer(imageEntry.ImageData, widthInCharacters, heightInCharacters, blurSigma)
 	imageEntry.ImageData = nil
 	memory.AddImage(imageAlias, imageEntry)
-	return err
-}
-
-/*
-LoadPreRenderedImagesInBulk allows you to load multiple pre-rendered images
-into memory at once. This is useful since it eliminates the need for error
-checking over each image as they are loaded. An example use of this method
-is as follows:
-
-	// Create a new asset list.
-	assetList := dosktop.NewAssetList()
-	// Add a pre-rendered image to our asset list, with a filename of
-	// 'MyImageFile', an image alias of 'MyImageAlias', a size in
-	// characters of 20x20, and a blur sigma of 0.5.
-	assetList.AddImage("MyImageFile", "MyImageAlias", 20, 20, 0.5)
-	// Load the list of images into memory.
-	err := dosktop.LoadImagesInBulk(assetList)
-
-In addition, the following information should be noted:
-
-- This method works by reading in the provided asset list and then calling
-'LoadPreRenderedImage' accordingly each time. For more information about the
-loading of images, please see 'LoadPreRenderedImage' for more details.
-
-- In the event an error occurs, it will be returned to the user immediately
-and further loading will stop.
-*/
-func LoadPreRenderedImagesInBulk(assetList memory.AssetListType) error {
-	var err error
-	for _, currentAsset := range assetList.PreloadedImageList {
-		err = LoadPreRenderedImage(currentAsset.FileAlias, currentAsset.FileAlias, currentAsset.WidthInCharacters, currentAsset.HeightInCharacters, currentAsset.BlurSigma)
-		if err != nil {
-			return err
-		}
-	}
 	return err
 }
 

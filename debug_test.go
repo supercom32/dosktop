@@ -19,7 +19,7 @@ func TestPrintDebugLog(test *testing.T) {
 	assert.NoErrorf(test, err, "Failed to delete the file '%s': ", fileName)
 }
 
-func TestDumpScreenToFile(test *testing.T) {
+func TestDumpScreen(test *testing.T) {
 	commonResource.isDebugEnabled = true
 	layerAlias1 := "Layer1"
 	layerWidth := 100

@@ -19,6 +19,17 @@ func dumpScreenToFile() {
 }
 
 /*
+DumpScreenToTerminal allows you to dump the current visible screen layer to the
+terminal. In addition, the following information should be noted:
+
+- This is a method just for internal testing and normally is not used unless
+required for debugging.
+*/
+func dumpScreenToTerminal() {
+	log.Println(commonResource.screenLayer.GetBasicAnsiStringAsBase64())
+}
+
+/*
 DumpLayerToFile allows you to dump a display layer to files on a disk. One
 file is a limited ansi representation of the screen layer. The other is
 a base64 string representation of the same layer. In addition, the
