@@ -4,7 +4,7 @@ import (
 	"github.com/supercom32/dosktop/internal/memory"
 	"log"
 	"os"
-	"github.com/supercom32/dosktop/internal/filesystem"
+	"github.com/supercom32/filesystem"
 )
 
 /*

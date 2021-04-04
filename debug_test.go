@@ -2,7 +2,7 @@ package dosktop
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/supercom32/dosktop/internal/filesystem"
+	"github.com/supercom32/filesystem"
 	"testing"
 )
 
