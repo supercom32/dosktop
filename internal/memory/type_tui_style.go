@@ -26,6 +26,7 @@ type TuiStyleEntryType struct {
 	IsWindowFooterDrawn          bool
 	TextForegroundColor          int32
 	TextBackgroundColor          int32
+	TextLabelColor				 int32
 	TextInputForegroundColor     int32
 	TextInputBackgroundColor int32
 	CursorCharacter    			rune
@@ -69,6 +70,7 @@ func NewTuiStyleEntry(existingStyleEntry ...*TuiStyleEntryType) TuiStyleEntryTyp
 		styleEntry.ProgressBarForegroundPattern = existingStyleEntry[0].ProgressBarForegroundPattern
 		styleEntry.TextForegroundColor = existingStyleEntry[0].TextForegroundColor
 		styleEntry.TextBackgroundColor = existingStyleEntry[0].TextBackgroundColor
+		styleEntry.TextLabelColor = existingStyleEntry[0].TextLabelColor
 		styleEntry.TextInputForegroundColor = existingStyleEntry[0].TextInputForegroundColor
 		styleEntry.TextInputBackgroundColor = existingStyleEntry[0].TextInputBackgroundColor
 		styleEntry.CursorCharacter = existingStyleEntry[0].CursorCharacter
@@ -102,6 +104,7 @@ func NewTuiStyleEntry(existingStyleEntry ...*TuiStyleEntryType) TuiStyleEntryTyp
 		styleEntry.ProgressBarForegroundPattern = constants.CharBlockSolid
 		styleEntry.TextForegroundColor = constants.AnsiColorByIndex[15]
 		styleEntry.TextBackgroundColor = constants.AnsiColorByIndex[0]
+		styleEntry.TextLabelColor = constants.AnsiColorByIndex[15]
 		styleEntry.TextInputForegroundColor = constants.AnsiColorByIndex[15]
 		styleEntry.TextInputBackgroundColor = constants.AnsiColorByIndex[0]
 		styleEntry.CursorCharacter = constants.CharBlockSolid

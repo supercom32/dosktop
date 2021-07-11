@@ -507,6 +507,40 @@ func drawBorder(layerEntry *memory.LayerEntryType, styleEntry memory.TuiStyleEnt
 }
 
 /*
+DrawFrameLabel allows you to draw a label for a frame. The label will
+be automatically enclosed by the characters "[" and "]" to blend in
+with a border of a frame.
+
+- If the frame label to be drawn falls outside the range of the
+specified layer, then only the visible portion of the border will be
+drawn.
+*/
+func DrawFrameLabel(layerAlias string, styleEntry memory.TuiStyleEntryType, label string, xLocation int, yLocation int) {
+	layerEntry := memory.GetLayer(layerAlias)
+	drawFrameLabel(layerEntry, styleEntry, label, xLocation, yLocation)
+}
+
+/*
+DrawFrameLabel allows you to draw a label for a frame. The label will
+be automatically enclosed by the characters "[" and "]" to blend in
+with a border of a frame.
+
+- If the frame label to be drawn falls outside the range of the
+specified layer, then only the visible portion of the border will be
+drawn.
+*/
+func drawFrameLabel(layerEntry *memory.LayerEntryType, styleEntry memory.TuiStyleEntryType, label string, xLocation int, yLocation int) {
+	attributeEntry := memory.NewAttributeEntry()
+	attributeEntry.ForegroundColor= styleEntry.TextForegroundColor
+	attributeEntry.BackgroundColor= styleEntry.TextBackgroundColor
+	printLayer(layerEntry, attributeEntry, xLocation, yLocation, []rune("[ "))
+	printLayer(layerEntry, attributeEntry, xLocation + 2 + len(label), yLocation, []rune(" ]"))
+	attributeEntry.ForegroundColor = styleEntry.TextLabelColor
+	attributeEntry.BackgroundColor = styleEntry.TextBackgroundColor
+	printLayer(layerEntry, attributeEntry, xLocation + 2, yLocation, []rune(label))
+}
+
+/*
 DrawFrame allows you to draw a frame on a given text layer. Frames differ
 from borders since borders are flat shaded and do not have a raised or
 sunken look to them. In addition, the following information should be noted:
