@@ -680,7 +680,7 @@ the visible portion of the fill will be drawn.
  */
 func FillArea(layerAlias string, fillCharacters string, xLocation int, yLocation int, width int, height int) {
 	layerEntry := memory.GetLayer(layerAlias)
-	attributeEntry := commonResource.screenLayer.DefaultAttribute
+	attributeEntry := layerEntry.DefaultAttribute
 	fillArea(layerEntry, attributeEntry, fillCharacters, xLocation, yLocation, width, height)
 }
 
