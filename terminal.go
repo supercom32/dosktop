@@ -678,7 +678,9 @@ clearLayer allows you to empty the specified text layer of all its contents.
 This is useful for internal methods that want to clear a text layer directly.
 */
 func clearLayer(layerEntry *memory.LayerEntryType) {
+	zOrder := layerEntry.ZOrder
 	*layerEntry = memory.NewLayerEntry(layerEntry.Width, layerEntry.Height)
+	layerEntry.ZOrder = zOrder
 }
 
 /*
