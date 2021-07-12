@@ -312,7 +312,7 @@ func GetSelectionFromHorizontalMenuByIndex(layerAlias string, styleEntry memory.
 }
 
 /*
-drawVerticalMenu allows you to obtain a user selection from a horizontal menu.
+DrawVerticalMenu allows you to obtain a user selection from a horizontal menu.
 In addition, the following information should be noted:
 
 - If the location to draw a menu item falls outside of the range of the text
@@ -322,7 +322,7 @@ layer, then only the visible portion of your menu item will be drawn.
 drawn. This is useful for menus sizes which are significantly larger than
 the visible display area allocated for the menu.
 */
-func drawVerticalMenu(layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int, menuWidth int, menuHeight int, viewportPosition int, itemSelected int) {
+func DrawVerticalMenu(layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int, menuWidth int, menuHeight int, viewportPosition int, itemSelected int) {
 	layerEntry := memory.GetLayer(layerAlias)
 	menuAttributeEntry := memory.NewAttributeEntry()
 	menuAttributeEntry.ForegroundColor = styleEntry.MenuForegroundColor
@@ -382,7 +382,7 @@ func GetSelectionFromVerticalMenuByIndex(layerAlias string, styleEntry memory.Tu
 	if defaultItemSelected < 0 || defaultItemSelected >= len(selectionEntry.SelectionValue) {
 		panic(fmt.Sprintf("The specified default item selected of '%d' is invalid for a selection range of 0 to %d!", defaultItemSelected, len(selectionEntry.SelectionValue)))
 	}
-	drawVerticalMenu(layerAlias, styleEntry, selectionEntry, xLocation, yLocation, menuWidth, menuHeight, viewportPosition, selectedItem)
+	DrawVerticalMenu(layerAlias, styleEntry, selectionEntry, xLocation, yLocation, menuWidth, menuHeight, viewportPosition, selectedItem)
 	UpdateDisplay()
 	for isItemSelected == false {
 		currentKeyPressed := Inkey()
@@ -434,7 +434,7 @@ func GetSelectionFromVerticalMenuByIndex(layerAlias string, styleEntry memory.Tu
 			if selectedItem >= len(selectionEntry.SelectionValue) {
 				selectedItem = len(selectionEntry.SelectionValue) - 1
 			}
-			drawVerticalMenu(layerAlias, styleEntry, selectionEntry, xLocation, yLocation, menuWidth, menuHeight, viewportPosition, selectedItem)
+			DrawVerticalMenu(layerAlias, styleEntry, selectionEntry, xLocation, yLocation, menuWidth, menuHeight, viewportPosition, selectedItem)
 			UpdateDisplay()
 			previouslySelectedItem = selectedItem
 		}
