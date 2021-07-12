@@ -122,6 +122,9 @@ chosen.
 */
 func GetSelectionFromProportionalHorizontalMenu(layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int, menuWidth int, numberOfItemsOnRow int, defaultItemSelected int) string {
 	selectionIndex := GetSelectionFromProportionalHorizontalMenuByIndex(layerAlias, styleEntry, selectionEntry, xLocation, yLocation, menuWidth, numberOfItemsOnRow, defaultItemSelected)
+	if selectionIndex == constants.NullSelectionIndex {
+		return ""
+	}
 	return selectionEntry.SelectionAlias[selectionIndex]
 }
 
@@ -207,6 +210,10 @@ func GetSelectionFromProportionalHorizontalMenuByIndex(layerAlias string, styleE
 			returnValue = selectedItem
 			isItemSelected = true
 		}
+		if currentKeyPressed == "esc" {
+			returnValue = constants.NullSelectionIndex
+			isItemSelected = true
+		}
 		if previouslySelectedItem != selectedItem {
 			if selectedItem >= len(selectionEntry.SelectionValue) {
 				selectedItem = len(selectionEntry.SelectionValue) - 1
@@ -237,6 +244,9 @@ chosen.
 */
 func GetSelectionFromHorizontalMenu(layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int, defaultItemSelected int) string {
 	selectionIndex := GetSelectionFromHorizontalMenuByIndex(layerAlias, styleEntry, selectionEntry, xLocation, yLocation, defaultItemSelected)
+	if selectionIndex == constants.NullSelectionIndex {
+		return ""
+	}
 	return selectionEntry.SelectionAlias[selectionIndex]
 }
 
@@ -295,6 +305,10 @@ func GetSelectionFromHorizontalMenuByIndex(layerAlias string, styleEntry memory.
 		}
 		if currentKeyPressed == "enter" {
 			returnValue = selectedItem
+			isItemSelected = true
+		}
+		if currentKeyPressed == "esc" {
+			returnValue = constants.NullSelectionIndex
 			isItemSelected = true
 		}
 		if previouslySelectedItem != selectedItem {
@@ -360,6 +374,9 @@ chosen.
 */
 func GetSelectionFromVerticalMenu (layerAlias string, styleEntry memory.TuiStyleEntryType, selectionEntry memory.SelectionEntryType, xLocation int, yLocation int, menuWidth int, menuHeight int, defaultItemSelected int) string {
 	selectionIndex := GetSelectionFromVerticalMenuByIndex(layerAlias, styleEntry , selectionEntry, xLocation, yLocation, menuWidth, menuHeight, defaultItemSelected)
+	if selectionIndex == constants.NullSelectionIndex {
+		return ""
+	}
 	return selectionEntry.SelectionAlias[selectionIndex]
 }
 
