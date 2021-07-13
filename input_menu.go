@@ -225,6 +225,7 @@ func GetSelectionFromProportionalHorizontalMenuByIndex(layerAlias string, styleE
 
 	}
 	clearMouseMenuItemIdentifiers(layerAlias, xLocation, yLocation, layerEntry.Width, 1)
+	memory.MouseMemory.WaitForClickRelease()
 	return returnValue
 }
 
@@ -322,6 +323,7 @@ func GetSelectionFromHorizontalMenuByIndex(layerAlias string, styleEntry memory.
 
 	}
 	clearMouseMenuItemIdentifiers(layerAlias, xLocation, yLocation, layerEntry.Width, 1)
+	memory.MouseMemory.WaitForClickRelease()
 	return returnValue
 }
 
@@ -457,6 +459,7 @@ func GetSelectionFromVerticalMenuByIndex(layerAlias string, styleEntry memory.Tu
 		}
 	}
 	clearMouseMenuItemIdentifiers(layerAlias, xLocation, yLocation, menuWidth, menuHeight)
+	memory.MouseMemory.WaitForClickRelease()
 	return returnValue
 }
 

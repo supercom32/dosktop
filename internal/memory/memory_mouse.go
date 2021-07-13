@@ -40,6 +40,11 @@ func (shared *mouseMemoryType) GetMouseStatus() (int, int, uint, string) {
 	return currentXLocation, currentYLocation, currentButtonPressed, currentWheelState
 }
 
+func (shared *mouseMemoryType) WaitForClickRelease() {
+	for shared.buttonPressed != 0 {
+	}
+}
+
 func (shared *mouseMemoryType) IsMouseInBoundingBox(xLocation int, yLocation int, width int, height int) bool {
 	mouseXLocation, mouseYLocation, _, _ := shared.GetMouseStatus()
 	if mouseXLocation >= xLocation && mouseXLocation <= xLocation+width {
