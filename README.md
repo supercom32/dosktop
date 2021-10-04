@@ -50,7 +50,7 @@ experiment, consider giving Dosktop a try!
 
 # Future Roadmap
 
-* More examples and documentation.
+* More examples and documentation. (see tests for basic examples)
 * More TUI controls (Progress bars, loading icons, etc).
 * Bulk addition of images and selections.
 * Saving and loading of terminal screenshots.
